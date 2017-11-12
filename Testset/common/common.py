@@ -77,6 +77,7 @@ def get_name(name):
     '''
     # element = driver.find_element_by_name(name)
     # return element
+
     findname = "//*[@text='%s']"%(name)
     print findname
     element = driver.find_element_by_xpath(findname)
