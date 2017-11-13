@@ -9,9 +9,9 @@ from appium import webdriver
 import Driver
 import time
 import os
+from logs import log
 
-
-
+log = log()
 
 def login():
     '''
@@ -80,9 +80,12 @@ def get_name(name):
 
     findname = "//*[@text='%s']"%(name)
     print findname
-    element = driver.find_element_by_xpath(findname)
-    return element
-
+    try:
+        element = driver.find_element_by_xpath(findname)
+        driver.implicitly_wait(2)
+        return element
+    except:
+        log.error('未定位到元素：'+'%s')%(name)
 
 def get_id(id):
     '''
@@ -90,8 +93,12 @@ def get_id(id):
     :param id:
     :return:
     '''
-    element = driver.find_element_by_id(id)
-    return element
+    try:
+        element = driver.find_element_by_id(id)
+        driver.implicitly_wait(2)
+        return element
+    except:
+        log.error('未定位到元素：'+'%s')%(id)
 
 def get_ids(id):
     '''
@@ -99,16 +106,35 @@ def get_ids(id):
     :param id:
     :return:列表
     '''
-    elements = driver.find_elements_by_id(id)
-    return elements
+    try:
+        elements = driver.find_elements_by_id(id)
+        driver.implicitly_wait(2)
+        return elements
+    except:
+        log.error('未定位到元素：'+'%s')%(id)
 
-
-
-
-
-
-
-
+def page(name):
+    '''
+    返回至指定页面
+    :return:
+    '''
+    i=0
+    while i<10:
+        i=i+1
+        try:
+            findname = "//*[@text='%s']"%(name)
+            driver.find_element_by_xpath(findname)
+            driver.implicitly_wait(2)
+            break
+        except :
+            os.popen("adb shell input keyevent 4")
+            try:
+                driver.find_element_by_xpath("//*[@text='工作台']")
+                driver.implicitly_wait(2)
+                break
+            except:
+                os.popen("adb shell input keyevent 4")
 
 if __name__ == "__main__":
+
     login()
