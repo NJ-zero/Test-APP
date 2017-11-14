@@ -69,6 +69,20 @@ def screenshot(pic):
     now=time.strftime("%y%m%d-%H-%M-%S")
     driver.get_screenshot_as_file('E:/TestAPP/Result/screenshot/'+now+pic)
 
+
+def find_name(name):
+    '''
+    判断页面是否存在某个元素
+    :param name:
+    :return:
+    '''
+    findname = "//*[@text='%s']"%(name)
+    exsit = driver.find_element_by_xpath(findname)
+    if exsit :
+        return True
+    else:
+        return False
+
 def get_name(name):
     '''
     定位页面text元素
