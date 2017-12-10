@@ -93,7 +93,6 @@ def get_name(name):
     # return element
 
     findname = "//*[@text='%s']"%(name)
-    print findname
     try:
         element = driver.find_element_by_xpath(findname)
         driver.implicitly_wait(2)
