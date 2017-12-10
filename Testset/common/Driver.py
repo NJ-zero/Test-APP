@@ -8,17 +8,25 @@
 
 from appium import webdriver
 from selenium.common.exceptions import WebDriverException
+import readConfig
+import readCmd
+
+conf = readConfig.Readconfig()
+cmd = readCmd.readCmd()
+
+
+deviceName = cmd.get_deviceName()
+platformVersion = cmd.get_platformVersion().encode('ascii')
+platformName = conf.getConfigValue('platformName')
+appPackage = conf.getConfigValue('appPackage').encode('ascii')
+appActivity = conf.getConfigValue('appActivity').encode('ascii')
+print appPackage
 
 def mydriver():
     desired_caps = {
-                'platformName':'Android',
-                'deviceName':'G40GLD4572500169',
-                'platformVersion':'6.0',
-                'appPackage':'com.fiberhome.waiqin365.client',
-                'appActivity':'com.waiqin365.base.login.LoginSplashActivity',
-                'unicodeKeyboard':True,
-                'resetKeyboard':True,
-                'noReset':True
+                'platformName':platformName,'deviceName':deviceName, 'platformVersion':platformVersion,
+                'appPackage':appPackage,'appActivity':appActivity,
+                'unicodeKeyboard':True,'resetKeyboard':True,'noReset':True
                 }
     try:
         driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_caps)
@@ -27,4 +35,6 @@ def mydriver():
         print 'No driver'
 
 
+if __name__ == "__main__":
 
+    mydriver()
