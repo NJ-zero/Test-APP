@@ -20,9 +20,13 @@ def testsuit():
 
                    ])
 
+
+    # runner = unittest.TextTestRunner(verbosity=2)
+    # runner.run(suite)
+
     now=time.strftime("%y-%m-%d-%H-%M-%S")
     dir = r'E:\\TestAPP\\Result\\report\\'
-    filename=dir +now+'result.html'
+    filename=dir + now +'result.html'
     fp=open(filename,'wb')
     runner=HTMLTestRunner.HTMLTestRunner(stream=fp,title='test result',description=u'result:')
 
